@@ -95,6 +95,14 @@ func (c *Client) doRequest(uri string, params map[string]string, returnStruct in
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
+	// fmt.Printf("%s", body)
+
+	writeErr := ioutil.WriteFile("pocket-exporter-full.json", body, 0777)
+	// handle this error
+	if writeErr != nil {
+		// print it out
+		fmt.Println(writeErr)
+	}
 
 	switch resp.StatusCode {
 	case 200:
